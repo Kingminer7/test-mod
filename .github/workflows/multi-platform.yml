@@ -134,7 +134,7 @@ jobs:
         id: read_changelog
         run: |
           CHANGES=$(awk '/^# /{if (p) exit; p=1; next} p' changelog.md)
-          echo "CHANGES=$CHANGES" >> $GITHUB_ENV
+          echo "CHANGES=\"$CHANGES\"" >> $GITHUB_ENV
 
       - name: Create Draft Release
         uses: softprops/action-gh-release@v1
@@ -143,7 +143,7 @@ jobs:
         with:
           tag_name: ${{ env.MOD_VERSION }}
           name: ${{ env.MOD_VERSION }}
-          body: env.CHANGES
+          body: ${{ env.CHANGES }}
             # TODO before publishing:
             #  - mark if pre-release
             #  - add changelog
