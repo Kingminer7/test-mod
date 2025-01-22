@@ -133,7 +133,7 @@ jobs:
       - name: Read changelog
         id: read_changelog
         run: |
-          CHANGES=$(awk '/^# /{if (p) exit; p=1; next} p' changelog.md)
+          CHANGES=$(awk '/^# /{if (p) exit; p=1; next} p' changelog.md | jq -sRr @json)
           echo "CHANGES=\"$CHANGES\"" >> $GITHUB_ENV
 
       - name: Create Draft Release
